@@ -146,13 +146,15 @@ export default function AdvanceTable(props: Props): JSX.Element {
           <tr className="border-slate-300 dark:border-slate-900">
             {/* If checkboxes enabled */}
             {props.isCheckBoxEnabled ? <th></th> : ''}
-            
+
             {/* If counter enabled */}
             { 
               props.counter ? <th className="pl-3 py-3">
                 #
               </th> : ''
             } 
+
+            
 
             {data.length === 0
               ? ''
@@ -398,21 +400,21 @@ export default function AdvanceTable(props: Props): JSX.Element {
           </div>
           {data.map((data: any, index: number) => {
             {/* If $color is provided */}
-            if (Object.hasOwn(data, '$color')) {
+            if (Object.prototype.hasOwnProperty.call(data, '$color')) {
               textColor = data['$color'];
             }else{
               textColor = '';
             }
 
             {/* If $bg is provided */}
-            if (Object.hasOwn(data, '$bg')) {
+            if (Object.prototype.hasOwnProperty.call(data, '$bg')) {
               bgColor = data['$bg'];
             }else{
               bgColor = '';
             }
 
             {/* If $special is provided */}
-            if (Object.hasOwn(data, '$special')) {
+            if (Object.prototype.hasOwnProperty.call(data, '$special')) {
               if(data['$special'] ) textBold = true;
             }
 
@@ -421,6 +423,7 @@ export default function AdvanceTable(props: Props): JSX.Element {
                 key={data._id}
                 className="bg-white dark:bg-slate-700 border-slate-300 cursor-pointer dark:border-slate-900 text-black dark:text-white"
               >
+                
                 {/* If checkboxes enabled */}
                 {props.isCheckBoxEnabled ? (
                   <td className="px-2" style={{ color: textColor, backgroundColor: bgColor}}>
@@ -435,18 +438,20 @@ export default function AdvanceTable(props: Props): JSX.Element {
                   ''
                 )}
 
+                {
+                  props.counter ? <td className="pl-3 py-2 h-10" style={{ color: textColor, backgroundColor: bgColor}}>
+                    {index + 1}
+                  </td> : ''
+                }
+
                 {/* If Skip is provided */}
                 {
-                  Object.hasOwn(data, '$skip') ? 
+                  Object.prototype.hasOwnProperty.call(data, '$skip') ? 
                     generateEmptyCells(data['$skip'])
                    : ''
                 }
 
-                {
-                  props.counter ? <td className="pl-3 py-2 h-10">
-                    {index + 1}
-                  </td> : ''
-                }
+                
 
                 {/* Main Table Data */}
                 {Object.keys(data).map((td: any) => {
@@ -484,7 +489,10 @@ export default function AdvanceTable(props: Props): JSX.Element {
                   props.actionButtons === undefined ||
                   Object.keys(props.actionButtons).length === 0
                 ) ? (
-                  <td className={`gap-5 pt-2 flex items-center justify-end pr-6`}>
+                  <td 
+                    className={`gap-5 pt-2 flex items-center justify-end pr-6 py-1 h-10`}
+                    // className={`gap-5 pt-2 flex items-center justify-end pr-6`} 
+                    style={{ color: textColor, backgroundColor: bgColor}}>
                     <div
                         onClick={() => props.actionButtons?.edit?.action(data._id)}
                         className={`${
