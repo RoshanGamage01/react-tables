@@ -81,8 +81,10 @@ export default function Theader(props: Readonly<Props>) {
                 {
                     props.isCheckBoxEnabled && <th className="px-2 w-10">
                         <input
-                        type="checkbox"
-                        onChange={() => {}}
+                            type="checkbox"
+                            onChange={() => {
+                                props.onCheckAll && props.onCheckAll()
+                            }}
                         />
                     </th>
                 }

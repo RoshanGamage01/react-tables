@@ -1,9 +1,21 @@
+import { HTMLInputTypeAttribute } from "react";
+
 export interface TableField {
     header: string;
     key: string;
     className?: string;
     enableSort?: boolean;
     directInput?: boolean;
+    inputType?: HTMLInputTypeAttribute | "normal_select" | "live_search_select";
+    normalSelectData?: {
+        value: string;
+        lable: string;
+    }[]
+    validations?: {
+        validationType: "custom" | "regex";
+        validationMethod?: (data: any) => string | boolean,
+        regex?: string | RegExp
+    }
     inputEvent?: (id: string, key: string, value: string) => void | Promise<void>;
 }
 

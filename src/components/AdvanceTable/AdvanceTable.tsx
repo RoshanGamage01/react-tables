@@ -5,6 +5,7 @@ import TBody from "./components/Body";
 
 export default function AdvanceTable(props: Readonly<Props>) {
   const [data, setData] = useState<any[]>(props.tableDataSet.data);
+  const [isCheckAll, setIsCheckAll] = useState<boolean>(false);
 
   useEffect(() => {
     setData(props.tableDataSet.data);
@@ -16,6 +17,7 @@ export default function AdvanceTable(props: Readonly<Props>) {
 
   return <div className="rounded table-fixed relative">
     <table className="w-full  border-slate-300 dark:border-slate-500 text-sm text-left text-gray-500 dark:text-gray-400 overflow-x-auto relative">
+      {/* TABLE HEADER */}
       <Theader
         headers={props.tableFieldConfigs}
         isCounterEnabled={props.counter}
@@ -25,8 +27,10 @@ export default function AdvanceTable(props: Readonly<Props>) {
         onSort={(sortedParams: string) => {
           sortData(sortedParams);
         }}
+        onCheckAll={() => setIsCheckAll(!isCheckAll)}
       />
 
+        {/* TABLE BODY */}
       <TBody 
         data={data}
         headers={props.tableFieldConfigs}
@@ -35,7 +39,10 @@ export default function AdvanceTable(props: Readonly<Props>) {
         checkBoxEmitter={props.checkBoxEmiter}
         actionButtons={props.actionButtons}
         isMenueEnabled={true}
+        isCheckAll={isCheckAll}
       />
     </table>
+
+    {/* PAGINATION HERE */}
   </div>
 }

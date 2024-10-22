@@ -10,7 +10,7 @@
   const handlePast = (event: any, index: number, i: number) => {
     event.preventDefault();
 
-    const clipboardData = event.clipboardData || window.clipboardData; 
+    const clipboardData = event.clipboardData || navigator.clipboard;
     const pastedData = clipboardData.getData('Text');
     const rows = pastedData.split('\n').map((row: any) => row.split('\t'));
 
@@ -19,7 +19,7 @@
         for(const cellIndex in row) {
             
             const cell = row[cellIndex];
-            
+
             const targetId = `${index + parseInt(rowIndex)}-${i + parseInt(cellIndex)}`;
             const targetElement: HTMLInputElement = document.getElementById(targetId) as HTMLInputElement;
 

@@ -9,12 +9,14 @@
    */
 const handleKeyDown = (event: any, index: number, i: number) => {
     const element = event.target as HTMLInputElement;
-    const cursorPosition = element.selectionStart;
+    const isTextInput = ['text', 'password', 'search', 'tel', 'url'].includes(element.type); // NOTE - cursorPosition is not available on the email field. That's why I excluded email from this array. - Roshan
+    const cursorPosition = element.selectionStart; 
 
+    
 
     if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || 
-        (event.key === 'ArrowLeft' && cursorPosition === 0) || 
-        (event.key === 'ArrowRight' && cursorPosition === element.value.length)) {
+        (event.key === 'ArrowLeft' && (!isTextInput || cursorPosition === 0)) || 
+        (event.key === 'ArrowRight' && (!isTextInput || cursorPosition === element.value.length))) {
 
       let focus_node_id = '';
 
